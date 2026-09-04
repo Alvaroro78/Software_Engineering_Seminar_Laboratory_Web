@@ -1,5 +1,5 @@
 // ========================================
-// LISTA DE TAREAS
+// LISTA DE TAREAS (caché local de lo que hay en Supabase)
 // ========================================
 
 let tasks = [];
@@ -15,10 +15,33 @@ const mensaje = document.getElementById("mensaje");
 
 
 // ========================================
+// CARGAR TAREAS DESDE SUPABASE
+// ========================================
+
+async function cargarTareas() {
+
+    const { data, error } = await supabaseClient
+        .from("tasks")
+        .select("*")
+        .order("created_at", { ascending: true });
+
+    if (error) {
+        mostrarMensaje("Error al cargar las tareas.");
+        console.error(error);
+        return;
+    }
+
+    tasks = data;
+
+    mostrarTareas();
+}
+
+
+// ========================================
 // CREAR UNA TAREA
 // ========================================
 
-taskForm.addEventListener("submit", function(event) {
+taskForm.addEventListener("submit", async function(event) {
 
     // Evita que la página se recargue
     event.preventDefault();
@@ -51,44 +74,36 @@ taskForm.addEventListener("submit", function(event) {
 
 
     // ========================================
-    // CREAR OBJETO TAREA
+    // GUARDAR TAREA EN SUPABASE
     // ========================================
 
-    const nuevaTarea = {
+    const { error } = await supabaseClient
+        .from("tasks")
+        .insert([{
+            title: title,
+            description: description,
+            completed: false,
+            deadline: deadline,
+            priority: priority
+        }]);
 
-        id: Date.now(),
-
-        title: title,
-
-        description: description,
-
-        completed: false,
-
-        created_at: new Date().toISOString(),
-
-        deadline: deadline,
-
-        priority: priority
-    };
-
-
-    // ========================================
-    // GUARDAR TAREA
-    // ========================================
-
-    tasks.push(nuevaTarea);
+    if (error) {
+        mostrarMensaje("Error al crear la tarea.");
+        console.error(error);
+        return;
+    }
 
 
     // Limpiar formulario
     taskForm.reset();
 
 
-    // Mostrar tareas
-    mostrarTareas();
-
-
     // Mostrar mensaje
     mostrarMensaje("Tarea creada correctamente.");
+
+
+    // Recargar tareas desde la base de datos
+    await cargarTareas();
 });
 
 
@@ -183,21 +198,29 @@ function mostrarTareas() {
 // COMPLETAR TAREA
 // ========================================
 
-function completarTarea(id) {
+async function completarTarea(id) {
 
     const task = tasks.find(function(task) {
 
         return task.id === id;
     });
 
-
-    if (task) {
-
-        task.completed = !task.completed;
+    if (!task) {
+        return;
     }
 
+    const { error } = await supabaseClient
+        .from("tasks")
+        .update({ completed: !task.completed })
+        .eq("id", id);
 
-    mostrarTareas();
+    if (error) {
+        mostrarMensaje("Error al actualizar la tarea.");
+        console.error(error);
+        return;
+    }
+
+    await cargarTareas();
 }
 
 
@@ -205,17 +228,22 @@ function completarTarea(id) {
 // ELIMINAR TAREA
 // ========================================
 
-function eliminarTarea(id) {
+async function eliminarTarea(id) {
 
-    tasks = tasks.filter(function(task) {
+    const { error } = await supabaseClient
+        .from("tasks")
+        .delete()
+        .eq("id", id);
 
-        return task.id !== id;
-    });
-
-
-    mostrarTareas();
+    if (error) {
+        mostrarMensaje("Error al eliminar la tarea.");
+        console.error(error);
+        return;
+    }
 
     mostrarMensaje("Tarea eliminada.");
+
+    await cargarTareas();
 }
 
 
@@ -237,7 +265,7 @@ function mostrarMensaje(texto) {
 
 
 // ========================================
-// MOSTRAR TAREAS AL INICIAR
+// CARGAR TAREAS AL INICIAR
 // ========================================
 
-mostrarTareas();
+cargarTareas();
