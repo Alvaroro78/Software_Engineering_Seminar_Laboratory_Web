@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CloudTasks</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>CloudTasks</h1>
+        <p>Gestion de tareas</p>
+    </header>
+
+    <main>
+
+        <section id="formulario-tarea">
+
+            <h2>Crear nueva tarea</h2>
+
+            <form id="task-form">
+
+                <label for="title">
+                    Título
+                </label>
+
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Ej: Terminar laboratorio"
+                >
+
+                <label for="description">
+                    Descripción
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Describe la tarea"
+                ></textarea>
+
+                <label for="deadline">
+                    Fecha límite
+                </label>
+
+                <input
+                    type="date"
+                    id="deadline"
+                    name="deadline"
+                >
+
+                <label for="priority">
+                    Prioridad
+                </label>
+
+                <select id="priority" name="priority">
+
+                    <option value="baja">
+                        Baja
+                    </option>
+
+                    <option value="media" selected>
+                        Media
+                    </option>
+
+                    <option value="alta">
+                        Alta
+                    </option>
+
+                </select>
+
+                <button type="submit">
+                    Crear tarea
+                </button>
+
+            </form>
+
+            <p id="mensaje"></p>
+
+        </section>
+
+
+        <section id="lista-tareas">
+
+            <h2>Mis tareas</h2>
+
+            <div id="tasks-container">
+
+                <!--
+                    Las tareas aparecerán aquí
+                    mediante JavaScript.
+                -->
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <p>
+            CloudTasks - Laboratorio de Ingeniería de Software
+        </p>
+
+    </footer>
+
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>

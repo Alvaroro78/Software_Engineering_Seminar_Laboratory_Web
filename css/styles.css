@@ -1,0 +1,200 @@
+/* ================================
+   CONFIGURACIÓN GENERAL
+================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+/* ================================
+   ENCABEZADO
+================================ */
+
+header {
+    background-color: #1f2937;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+header h1 {
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #d1d5db;
+}
+
+
+/* ================================
+   CONTENIDO PRINCIPAL
+================================ */
+
+main {
+    width: 90%;
+    max-width: 900px;
+    margin: 30px auto;
+}
+
+
+/* ================================
+   SECCIONES
+================================ */
+
+section {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+section h2 {
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+
+/* ================================
+   FORMULARIO
+================================ */
+
+#task-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#task-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#task-form input,
+#task-form textarea,
+#task-form select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+#task-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+
+/* ================================
+   BOTÓN CREAR
+================================ */
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#task-form button {
+    background-color: #2563eb;
+    color: white;
+}
+
+#task-form button:hover {
+    background-color: #1d4ed8;
+}
+
+
+/* ================================
+   MENSAJES
+================================ */
+
+#mensaje {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+
+/* ================================
+   TARJETAS DE TAREAS
+================================ */
+
+.task-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.task-card h3 {
+    margin-bottom: 8px;
+}
+
+.task-card p {
+    margin-bottom: 6px;
+}
+
+
+/* ================================
+   ESTADO COMPLETADO
+================================ */
+
+.task-completed {
+    background-color: #ecfdf5;
+}
+
+.task-completed h3 {
+    text-decoration: line-through;
+}
+
+
+/* ================================
+   BOTONES DE LAS TAREAS
+================================ */
+
+.task-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.complete-btn {
+    background-color: #16a34a;
+    color: white;
+}
+
+.complete-btn:hover {
+    background-color: #15803d;
+}
+
+.delete-btn {
+    background-color: #dc2626;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #b91c1c;
+}
+
+
+/* ================================
+   PIE DE PÁGINA
+================================ */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
